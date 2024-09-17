@@ -1,0 +1,88 @@
+setp1: create virtual environment
+        python -m venv myevn(name):
+     activate virtual environment
+         ./myenv/Scripts/activate
+        if not use this code
+            i.set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
+             ii.Get-ExecutionPolicy
+             iii.Get-ExecutionPolicy -list
+
+step2; 
+     pip install django
+     check myenv library: pip freeze
+
+step3:
+    create a django project:django-admin startproject project_name
+    cd crudProject
+    python manage.py startapp crudApp
+
+step4:
+    register  app in settings.py
+    INSTALL_App=[
+        ....
+    ]
+
+    EXTERNAL_App=[
+        ------
+    ]
+    INSTALL_App.extend(EXTERNAL_App)
+
+	python manage.py migrate
+
+    after that setting ko static_url pxi tala ko 2 otaa code lekhney
+		MEDIA_ROOT =BASE_DIR/'media'
+		MEDIA_URL="/media/"
+    
+    write these two commands in project urls.
+        from django.conf import settings
+        from django.conf.urls.static import static
+        after  that static maa click grney ani tala vko code static ko  + pxi  ko copy garney ani 
+	    urls  maa paste greny
+
+step5:create ursl.py file in app
+
+     link or configure that urls.py in  project urls.py file
+
+     in project urls.py
+
+     from django.urls import path, include
+
+     urlspatterns[
+        ...........
+        path("",include("appname,urls"))
+     ]
+
+
+    in app__ urls.py
+
+    from django.urls import path
+    from .views import *
+
+    urlpatterns = [
+         path('', home , name='home'),
+	 path('form/', form,name='form'),
+	................................
+
+	and same for other web pages too
+    ]
+step6: create a folder having same name as app name (crudApp) inside templates folder
+        create home.html inside that folder
+step7: in app__ views.py
+    from django.shortcuts import render
+    def home(request):
+    return render(request,"crudApp/home.html")
+
+step8: create a base.html file inside templates  and  keep the repeated code of all other web pages in base.html file
+step9: In other web-pages 
+	{% extends "base.html" %} 
+	
+	{% block content %}
+		 write the body of particular web page in this section
+		eg. for home page 
+			 <h1 class="text-center alert alert-danger">This is home page</h1>
+	{% endblock content %}
+step10: To  switch pages  by clicking the icons of navigation bar include the link of the pages in base.html file
+		<a class="nav-link" href="{% url 'form' %}">Form</a>
+			the above code helps to open the form.html file on clicking form icon in navigation bar
+	
+	

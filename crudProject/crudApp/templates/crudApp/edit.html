@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+edit
+
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<h1 class="text-center alert alert-danger">Edit student Information</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-10 mx-auto alert alert-primary">
+            <form method="POST" action="{% url 'edit' data.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Full Name</label>
+                    <input type="text" value="{{data.name}}" name="name" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Age</label>
+                    <input type="Number" value={{data.age}} name="age" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="Email" value={{data.email}} name="email" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+
+                <div class="form-floating">
+                    <textarea class="form-control" name="message" placeholder="Leave a comment here"
+                        id="floatingTextarea2" style="height: 100px">{{data.message}}</textarea>
+                    <label for="floatingTextarea2">Message</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

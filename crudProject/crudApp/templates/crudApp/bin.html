@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+bin
+{% endblock title %}
+
+
+{% block content %}
+
+<h1 class="text-center alert alert-danger mx-auto ">Show Deleted Information</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <table class="table table-success table-striped">
+                <thead>
+
+                    <tr>
+                        <th scope="col">SN</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">message</th>
+                        <th scope="col">Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for i in finds %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{i.id}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.message}}</td>
+                        <td>
+                            <!-- <a href="{% url 'restore' i.id %}"><button class="btn btn-success"> <i
+                                        class="fa-solid fa-pen-to-square "></i> Restore</button></a> -->
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"><i class="fa-solid fa-pen-to-square"></i>
+                                Restore
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Restore information</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="{% url 'restore' i.id %}">
+                                            <div class="modal-body">
+                                                Do you want to restore data?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Restore</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'delete_bin' i.id %}"> <button class="btn btn-danger"><i
+                                        class="fa-solid fa-trash "></i> Delete</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+{% block js %}
+
+<script>
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+</script>
+{% endblock js %}
+
+
+{% endblock content %}
